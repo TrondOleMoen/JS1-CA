@@ -22,7 +22,7 @@ async function fetchProducts() {
       title.textContent = product.title;
       ageRating.textContent = product.ageRating;
       detailsBtn.textContent = "Details";
-      detailsBtn.href = `/product.html?id=${product.id}`;
+      detailsBtn.href = `/single-product.html?id=${product.id}`;
 
       card.className = "card";
       detailsBtn.className = "cta-btn";

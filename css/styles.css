@@ -28,3 +28,11 @@ main {
   padding-top: 4px;
   padding-bottom: 4px;
 }
+#product-image img {
+  max-width: 400px;
+}
+
+.product-wrapper {
+  display: flex;
+  gap: 8px;
+}
