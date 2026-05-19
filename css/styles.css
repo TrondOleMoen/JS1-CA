@@ -55,6 +55,7 @@ main {
   width: 100%;
   padding-top: 4px;
   padding-bottom: 4px;
+  text-decoration: none;
 }
 #product-image img {
   max-width: 400px;
@@ -63,6 +64,20 @@ main {
 .product-wrapper {
   display: flex;
   gap: 8px;
+}
+
+#checkout-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+#checkout-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 400px;
+  margin: 24px auto 0 auto;
 }
 
 .cart-item {
@@ -75,7 +90,6 @@ main {
 
 .cart-item img {
   width: 120px;
-  object-fit: cover;
 }
 
 .cart-item-info {
@@ -88,6 +102,38 @@ main {
   font-size: 1.2rem;
   font-weight: bold;
   padding: 16px 0;
+}
+
+.buy-btn,
+.details-btn,
+.submit-btn .checkout-btn {
+  background-color: none;
+  border: 1px solid black;
+  color: rgb(0, 119, 0);
+  padding: 4px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  width: fit-content;
+  text-decoration: none;
+}
+
+.quantity-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.buy-btn:hover,
+details-btn:hover,
+submit-btn:hover,
+checkout-btn:hover {
+  background-color: green;
+  color: white;
+}
+
+.cta-btn:hover {
+  background-color: rgba(7, 78, 184, 0.349);
+  color: white;
 }
 
 .remove-btn {
@@ -103,4 +149,11 @@ main {
 .remove-btn:hover {
   background-color: #e94560;
   color: #fff;
+}
+
+.cart-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 40px;
 }

@@ -26,6 +26,25 @@ export function removeFromCart(id) {
   localStorage.setItem("cart", JSON.stringify(cart));
 }
 
+export function increaseQuantity(id) {
+  const cart = getCart();
+  const item = cart.find((item) => item.id === id);
+  if (item) item.quantity += 1;
+  localStorage.setItem("cart", JSON.stringify(cart));
+}
+
+export function decreaseQuantity(id) {
+  const cart = getCart();
+  const item = cart.find((item) => item.id === id);
+  if (item && item.quantity > 1) {
+    item.quantity -= 1;
+  } else {
+    // fjern vara dersom quantity blir 0
+    removeFromCart(id);
+  }
+  localStorage.setItem("cart", JSON.stringify(cart));
+}
+
 export function clearCart() {
   localStorage.removeItem("cart");
 }

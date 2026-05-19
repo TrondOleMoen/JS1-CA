@@ -1,4 +1,10 @@
-import { getCart, removeFromCart, clearCart } from "./cart.js";
+import {
+  getCart,
+  removeFromCart,
+  clearCart,
+  increaseQuantity,
+  decreaseQuantity,
+} from "./cart.js";
 import { renderNav } from "./nav.js";
 
 renderNav();
@@ -36,15 +42,46 @@ function renderCartPage() {
     const price = document.createElement("p");
     price.textContent = `$${(unitPrice * item.quantity).toFixed(2)}`;
 
+    const decreaseBtn = document.createElement("button");
+    decreaseBtn.textContent = "-";
+    decreaseBtn.className = "decrease-btn";
+    decreaseBtn.addEventListener("click", () => {
+      decreaseQuantity(item.id);
+      renderCartPage();
+      renderNav();
+    });
+
+    const increaseBtn = document.createElement("button");
+    increaseBtn.textContent = "+";
+    increaseBtn.className = "increase-btn";
+    increaseBtn.addEventListener("click", () => {
+      increaseQuantity(item.id);
+      renderCartPage();
+      renderNav();
+    });
+
+    const quantityDisplay = document.createElement("span");
+    quantityDisplay.textContent = item.quantity;
+
     const removeBtn = document.createElement("button");
     removeBtn.textContent = "Remove";
     removeBtn.className = "remove-btn";
     removeBtn.addEventListener("click", () => {
       removeFromCart(item.id);
       renderCartPage();
+      renderNav();
     });
 
-    info.append(title, qty, price, removeBtn);
+    const quantityWrapper = document.createElement("div");
+    quantityWrapper.className = "quantity-wrapper";
+    quantityWrapper.append(
+      decreaseBtn,
+      quantityDisplay,
+      increaseBtn,
+      removeBtn,
+    );
+
+    info.append(title, quantityWrapper, price);
     row.append(img, info);
     container.append(row);
   });
@@ -58,15 +95,27 @@ function renderCartPage() {
   totalEl.className = "cart-total";
   totalEl.textContent = `Total: $${total.toFixed(2)}`;
 
+  const checkoutBtn = document.createElement("button");
+  checkoutBtn.textContent = "To checkout";
+  checkoutBtn.className = "checkout-btn";
+  checkoutBtn.addEventListener("click", () => {
+    window.location.href = "/checkout.html";
+  });
+
   const clearBtn = document.createElement("button");
   clearBtn.textContent = "Clear cart";
   clearBtn.className = "cta-btn";
   clearBtn.addEventListener("click", () => {
     clearCart();
     renderCartPage();
+    renderNav();
   });
 
-  container.append(totalEl, clearBtn);
+  const footer = document.createElement("div");
+  footer.className = "cart-footer";
+  footer.append(clearBtn, checkoutBtn);
+
+  container.append(totalEl, footer);
 }
 
 renderCartPage();

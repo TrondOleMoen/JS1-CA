@@ -1,5 +1,6 @@
 import { BASE_URL } from "./api.js";
 import { renderNav } from "./nav.js";
+import { addToCart } from "./cart.js";
 
 renderNav();
 
@@ -13,6 +14,7 @@ async function fetchProducts() {
 
     products.forEach((product) => {
       const card = document.createElement("div");
+      card.className = "card";
       const title = document.createElement("h2");
       const ageRating = document.createElement("p");
       const price = document.createElement("p");
@@ -27,18 +29,22 @@ async function fetchProducts() {
       ageRating.textContent = product.ageRating;
       detailsBtn.textContent = "Details";
       detailsBtn.href = `/single-product.html?id=${product.id}`;
+      detailsBtn.className = "details-btn";
       buyBtn.textContent = "Buy";
-      buyBtn.card.className = "card";
-      detailsBtn.className = "cta-btn";
+      buyBtn.className = "buy-btn";
+      buyBtn.addEventListener("click", () => {
+        addToCart(product);
+        renderNav();
+      });
 
       //Price logic
       if (product.onSale === true) {
         price.textContent = `$${product.discountedPrice}`;
       } else if (product.onSale === false) {
-        price.textContent = product.price;
+        price.textContent = `$${product.price}`;
       }
 
-      card.append(thumbnail, title, price, ageRating, detailsBtn);
+      card.append(thumbnail, title, price, ageRating, detailsBtn, buyBtn);
       productsContainer.append(card);
     });
   } catch (error) {
