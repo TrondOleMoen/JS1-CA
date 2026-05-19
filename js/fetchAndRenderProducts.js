@@ -1,4 +1,7 @@
 import { BASE_URL } from "./api.js";
+import { renderNav } from "./nav.js";
+
+renderNav();
 
 async function fetchProducts() {
   const productsContainer = document.getElementById("container");
@@ -15,6 +18,7 @@ async function fetchProducts() {
       const price = document.createElement("p");
       const thumbnail = document.createElement("img");
       const detailsBtn = document.createElement("a");
+      const buyBtn = document.createElement("a");
       console.log(product);
 
       thumbnail.src = product.image.url;
@@ -23,8 +27,8 @@ async function fetchProducts() {
       ageRating.textContent = product.ageRating;
       detailsBtn.textContent = "Details";
       detailsBtn.href = `/single-product.html?id=${product.id}`;
-
-      card.className = "card";
+      buyBtn.textContent = "Buy";
+      buyBtn.card.className = "card";
       detailsBtn.className = "cta-btn";
 
       //Price logic
@@ -39,6 +43,7 @@ async function fetchProducts() {
     });
   } catch (error) {
     console.error(error, "something went wrong");
+  } finally {
   }
 }
 fetchProducts();

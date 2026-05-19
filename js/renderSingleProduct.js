@@ -1,4 +1,8 @@
 import { BASE_URL } from "./api.js";
+import { addToCart } from "./cart.js";
+import { renderNav } from "./nav.js";
+
+renderNav();
 
 const id = new URLSearchParams(window.location.search).get("id");
 const productDetails = document.getElementById("product-details");
@@ -14,24 +18,31 @@ async function displayProduct() {
   const description = document.createElement("p");
   const price = document.createElement("p");
   const image = document.createElement("img");
-  const detailsBtn = document.createElement("a");
+  const addToCartBtn = document.createElement("button");
   const released = document.createElement("p");
   const genre = document.createElement("p");
-
-  console.log(product);
 
   image.src = product.image.url;
   image.alt = product.title;
   title.textContent = product.title;
-  ageRating.textContent = product.ageRating;
+  ageRating.textContent = `Age rating: ${product.ageRating}`;
   description.textContent = product.description;
-  released.textContent = product.released;
-  genre.textContent = product.genre;
+  released.textContent = `Released: ${product.released}`;
+  genre.textContent = `Genre: ${product.genre}`;
+  price.textContent = product.onSale
+    ? `$${product.discountedPrice}`
+    : `$${product.price}`;
 
-  detailsBtn.textContent = "Add to cart";
-  detailsBtn.className = "cta-btn";
-  //   detailsBtn.addEventListener = ;
-  // add cart logic here
+  addToCartBtn.textContent = "Add to cart";
+  addToCartBtn.className = "cta-btn";
+  addToCartBtn.addEventListener("click", () => {
+    addToCart(product);
+    addToCartBtn.textContent = "Added!";
+    setTimeout(() => {
+      addToCartBtn.textContent = "Add to cart";
+    }, 1000);
+    window.location.reload();
+  });
 
   productImage.append(image);
   productDetails.append(
@@ -40,7 +51,8 @@ async function displayProduct() {
     released,
     genre,
     ageRating,
-    detailsBtn,
+    price,
+    addToCartBtn,
   );
 }
 
